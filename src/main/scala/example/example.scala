@@ -8,9 +8,12 @@ trait Hay {
 trait Straw extends Hay { override def n = 1 }
 trait Fodder extends Straw { override def n = 2 }
 
+trait Swath extends Hay { override def n = 3 }
+
 object Hay {
     implicit val straw = new Straw {}
     implicit val fodder = new Fodder {}
+    implicit val swath = new Swath {}
 }
 
 
