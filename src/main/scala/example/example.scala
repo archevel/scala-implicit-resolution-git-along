@@ -1,16 +1,16 @@
 package example
 
-case class Hay(n:Int)
+case class Hay[T](n:Int)
 object Hay {
-    implicit val h = new Hay(1) with Foo
+    implicit def h = new Hay[Biz](1)
 }
 
-trait Foo
-object Foo {
-    implicit def g = new Hay(2) with Foo
+trait Biz
+object Biz {
+    implicit def bizHay = new Hay[Biz](2)
 }
 
 object Example {
-    def notWar(implicit h:Hay with Foo) = println(h)
-    def printHay = notWar
+    def notWar[T](implicit h:Hay[T]) = println(h)
+    def printHay = notWar[Biz]
 }
