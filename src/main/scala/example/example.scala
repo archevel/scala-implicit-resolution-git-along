@@ -14,6 +14,7 @@ object Hay {
     implicit val straw = new Straw {}
     implicit val fodder = new Fodder {}
     implicit val swath = new Swath {}
+    implicit val swathStraw = new Fodder with Swath with Straw {}
 }
 
 
