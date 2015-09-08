@@ -1,20 +1,20 @@
 package example
 
-case class Hay(n:Int) 
+trait Hay {
+    def n:Int
+    override def toString(): String = getClass.getName + s"($n)"
+}
+
+trait Straw extends Hay { override def n = 1 }
+trait Fodder extends Straw { override def n = 2 }
 
 object Hay {
-    implicit def g = Hay(1)
+    implicit val straw = new Straw {}
+    implicit val fodder = new Fodder {}
 }
 
-class Foo {
-    implicit val fooHay = Hay(2)
-}
 
-class Bar extends Foo {
-    implicit val barHay = Hay(3)
-}
-
-object Example extends Bar {
+object Example {
     def notWar(implicit h:Hay) = println(h)
     def printHay = notWar
 }
