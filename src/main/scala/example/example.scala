@@ -2,20 +2,15 @@ package example
 
 case class Hay(n:Int)
 object Hay {
-    implicit def g = Hay(1)
-    implicit val h = Hay(2)
+    implicit val h = new Hay(1) with Foo
 }
 
-class Foo {
-    implicit val fooHay = Hay(4)
-    implicit object Straw extends Hay(5)
+trait Foo
+object Foo {
+    implicit def g = new Hay(2) with Foo
 }
 
-class Bar extends Foo {
-    implicit val barHay = Hay(6)
-}
-
-object Example extends Bar {
-    def notWar(implicit h:Hay) = println(h)
+object Example {
+    def notWar(implicit h:Hay with Foo) = println(h)
     def printHay = notWar
 }
